@@ -1,37 +1,38 @@
 // const productSample = require('../sample/product.sample').productSample;
 
-export class ProductsService {
-
+class ProductsService {
     public products: any = [];
 
+    public typeDefs: string = '';
+
     configTypeDefs() {
-        let typeDefs = `
+        this.typeDefs = `
           type Product {
             name: String,
             description: String,
             id: Int,
             price: Int
           } `;
-        typeDefs += ` 
+        this.typeDefs += ` 
           extend type Query {
-          products: [Product]g
+          products: [Product]
         }
         `;
 
-        typeDefs += `
+        this.typeDefs += `
           extend type Mutation {
             product(name:String, id:Int, description: String, price: Int): Product!
           }`;
-        return typeDefs;
+        return this.typeDefs;
     }
 
     configResolvers(resolvers: any) {
-        resolvers.Query.products = () => {
-            return this.products;
-        };
+        resolvers.Query.products = () => this.products;
         resolvers.Mutation.product = (_: any, product: any) => {
             this.products.push(product);
             return product;
         };
     }
 }
+
+export default ProductsService;

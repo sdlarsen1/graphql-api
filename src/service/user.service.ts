@@ -1,11 +1,12 @@
 const crypto = require('crypto');
 
-export class UsersService {
-
+class UsersService {
     public users: any = [];
 
+    public typeDefs: string = '';
+
     configTypeDefs() {
-        let typeDefs = `
+        this.typeDefs = `
           type User {
             firstName: String,
             lastName: String,
@@ -14,13 +15,13 @@ export class UsersService {
             permissionLevel: Int,
             email: String
           } `;
-        typeDefs += ` 
+        this.typeDefs += ` 
           extend type Query {
           users: [User]
         }
         `;
 
-        typeDefs += `
+        this.typeDefs += `
           extend type Mutation {
             user(firstName:String,
              lastName: String,
@@ -29,19 +30,19 @@ export class UsersService {
              email: String,
              id:Int): User!
           }`;
-        return typeDefs;
+        return this.typeDefs;
     }
 
     configResolvers(resolvers: any) {
-        resolvers.Query.users = () => {
-            return this.users;
-        };
+        resolvers.Query.users = () => this.users;
         resolvers.Mutation.user = (_: any, user: any) => {
-            let salt = crypto.randomBytes(16).toString('base64');
-            let hash = crypto.createHmac('sha512', salt).update(user.password).digest("base64");
+            const salt = crypto.randomBytes(16).toString('base64');
+            const hash = crypto.createHmac('sha512', salt).update(user.password).digest('base64');
             user.password = hash;
             this.users.push(user);
             return user;
         };
     }
 }
+
+export default UsersService;

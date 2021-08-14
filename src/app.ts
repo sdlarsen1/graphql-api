@@ -1,7 +1,7 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
-import {makeExecutableSchema} from 'graphql-tools';
-import {ProductsService, UsersService} from './service'
+import { makeExecutableSchema } from 'graphql-tools';
+import { ProductsService, UsersService } from './service';
 
 const app: express.Application = express();
 const port = 3000;
@@ -31,18 +31,18 @@ let helloMessage: String = 'World!';
 
 // Instead of the expectation of fields or required parameters,
 // here we define the functions and behaviors of how should the queries and mutations would work
-let resolvers = {
+const resolvers = {
     // The “gets” that we want to read from the server
     Query: {
-        hello: () => helloMessage
+        hello: () => helloMessage,
     },
     // Our requests that are going to affect any data that we have on our own server
     Mutation: {
         hello: (_: any, helloData: any) => {
             helloMessage = helloData.message;
             return helloMessage;
-        }
-    }
+        },
+    },
 };
 
 // Create new service instance
@@ -57,12 +57,11 @@ typeDefs += userService.configTypeDefs();
 productService.configResolvers(resolvers);
 userService.configResolvers(resolvers);
 
-
 app.use(
     '/graphql',
     graphqlHTTP({
-        schema: makeExecutableSchema({typeDefs, resolvers}),
-        graphiql: true
-    })
+        schema: makeExecutableSchema({ typeDefs, resolvers }),
+        graphiql: true,
+    }),
 );
 app.listen(port, () => console.log(`Node Graphql API listening on port ${port}!`));
