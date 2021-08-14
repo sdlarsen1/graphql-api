@@ -1,8 +1,8 @@
-const productSample = require('./product.sample').productSample;
+// const productSample = require('../sample/product.sample').productSample;
 
 export class ProductsService {
 
-    public products: any = productSample;
+    public products: any = [];
 
     configTypeDefs() {
         let typeDefs = `
@@ -14,7 +14,7 @@ export class ProductsService {
           } `;
         typeDefs += ` 
           extend type Query {
-          products(id: Int!): [Product]
+          products: [Product]g
         }
         `;
 

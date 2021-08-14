@@ -1,8 +1,7 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import {makeExecutableSchema} from 'graphql-tools';
-import {ProductsService} from './product/product.service';
-import {UsersService} from './user/user.service';
+import {ProductsService, UsersService} from './service'
 
 const app: express.Application = express();
 const port = 3000;
