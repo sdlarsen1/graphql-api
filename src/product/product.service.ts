@@ -14,7 +14,7 @@ export class ProductsService {
           } `;
         typeDefs += ` 
           extend type Query {
-          products: [Product]
+          products(id: Int!): [Product]
         }
         `;
 

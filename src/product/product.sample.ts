@@ -1,4 +1,4 @@
-import {Product} from './product.class';
+import {Product} from './product.model';
 
 const products: Array<Product> = [];
 

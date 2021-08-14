@@ -12,6 +12,11 @@ const port = 3000;
  * https://www.toptal.com/graphql/graphql-nodejs-api
  */
 
+/**
+ * Create server here
+ * https://www.apollographql.com/blog/graphql/examples/building-a-graphql-server/
+ */
+
 // The definition of our schema of what we can expect from queries and mutations
 let typeDefs: any = [`
   type Query {
